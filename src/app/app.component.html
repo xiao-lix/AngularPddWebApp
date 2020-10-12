@@ -1,1 +1,13 @@
-<app-scrollable-tab></app-scrollable-tab>
+<!-- 从父组件传给子组件需要的变量内容，注意变量名[menus]必须match子组件要求的变量名，该变量名是定义在子组件中的 -->
+<!-- (tabSelected) 自动出现，父组件可以用子组件传回来的内容进行处理，param $event 就是传回来的数据 -->
+<app-scrollable-tab 
+    [menus] = "topMenu"
+    [titleActiveColor] = "'red'"
+    [titleColor] = "'dimgray'"
+    [menuBackGroundColor] = "'#fff'"
+    [indicatorBackgroundColor] = "'brown'"
+    (tabSelected)="handelTabSelected($event)">
+</app-scrollable-tab>
+<app-image-slider
+    [sliders]="imageSliders">
+</app-image-slider>

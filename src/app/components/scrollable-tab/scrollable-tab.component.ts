@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-interface TopMenu {
+export interface TopMenu {
   title: string;
   link?: string;
 }
@@ -13,76 +13,12 @@ interface TopMenu {
 export class ScrollableTabComponent implements OnInit {
   title = 'pinduoduo';
   selectedIndex = -1;
-  menus: TopMenu[] = [
-    {
-      title: '热门',
-      link: ''
-    },
-    {
-      title: '男装',
-      link: ''
-    },
-    {
-      title: '百货',
-      link: ''
-    },
-    {
-      title: '运动',
-      link: ''
-    },
-    {
-      title: '手机',
-      link: ''
-    },
-    {
-      title: '家纺',
-      link: ''
-    },
-    {
-      title: '食品',
-      link: ''
-    },
-    {
-      title: '电器',
-      link: ''
-    },
-    {
-      title: '鞋包',
-      link: ''
-    },
-    {
-      title: '汽车',
-      link: ''
-    },
-    {
-      title: '水果',
-      link: ''
-    },
-    {
-      title: '电脑',
-      link: ''
-    },
-    {
-      title: '内衣',
-      link: ''
-    },
-    {
-      title: '家装',
-      link: ''
-    },
-    {
-      title: '母婴',
-      link: ''
-    },
-    {
-      title: '美妆',
-      link: ''
-    },
-    {
-      title: '家具',
-      link: ''
-    }
-  ];
+  @Input() menus: TopMenu[] = []; // @Input decorator 代表这个变量的值是被传入的 - 从父组件传入
+  @Input() menuBackGroundColor = '#fff'; // give default value
+  @Input() titleActiveColor = 'red';
+  @Input() titleColor = 'black';
+  @Input() indicatorBackgroundColor = 'brown';
+  @Output() tabSelected = new EventEmitter(); // @Ooutput decorator 创建一个新的事件触发器 - 用来让父组件监听子组件上事件的触发然后做出相应的动作
 
   constructor() { }
 
@@ -91,6 +27,7 @@ export class ScrollableTabComponent implements OnInit {
 
   handleSelection(index: number) {
     this.selectedIndex = index;
+    this.tabSelected.emit(this.menus[this.selectedIndex]); // 当某个tab被点击，触发我们自己定义的事件触发器发射出去这个事件并且携带你想带的数据 - 这个是携带了menu上被选中的tab
   }
 
 }
